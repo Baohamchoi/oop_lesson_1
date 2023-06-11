@@ -6,50 +6,45 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Nhập một đoạn hoặc một bài thơ lục bát (Nhập '.' để kết thúc việc ghi thơ): ");
-        StringBuilder poemBuilder = new StringBuilder();
-        String line;
-        while (true)
+        System.out.println("Nhập một đoạn hoặc một bài thơ lục bát : ");
+        String[] line = new String[10];
+        for (int i = 0; i < 4; i++)
         {
-            line = scanner.nextLine();
-
-            if (line.equals("."))
-            {
-                break;
-            }
-            // equals("...") : hàm so sánh độ dài của chuỗi, ở trên là dòng nào chứa mỗi dấu "." thì sẽ thoát vòng lặp.
-            poemBuilder.append(line).append("\n");
-            // dòng 20 sẽ nối các ( line + "\n" ) lại với nhau.
+            line[i] = scanner.nextLine();
         }
-        String poem = poemBuilder.toString();
-        String formattedPoem = formatPoem(poem);
+        formatPoem(line);
+//        String poem = poemBuilder.toString();
+//        String formattedPoem = formatPoem(poem);
         // gán những dòng code đã nối lại trong biến poemBuilder vào poem và thêm toString() để chuỗi chạy như chuỗi bth.
         System.out.println("Bài thơ đã được chỉnh sửa."+"\n");
-        System.out.println(formattedPoem);
+//        System.out.println(formattedPoem);
+        for (int i = 0; i < 4; i++)
+        {
+            System.out.println(line[i]);
+        }
     }
 
-    public static String formatPoem(String poem)
+    public static void formatPoem(String[] line)
     {
-        String[] lines = poem.split("\n");
-        int maxLineLength = 0;
-        for (String line : lines)
+        int max_kitu = 0;
+        for (int i = 0; i < 4; i++)
         {
-            if (line.length() > maxLineLength)
+            if (line[i].length() > max_kitu)
             {
-                maxLineLength = line.length();
+                max_kitu = line[i].length();
             }
         }
-        // dùng for chạy từng dòng để đo số kí tự mỗi dòng và tìm ra dòng dài nhất.
-        StringBuilder formattedPoemBuilder = new StringBuilder();
 
-        for (String line : lines) {
-            int padding = (maxLineLength - line.length()) / 2;
-            // trừ số kí tự của dòng dài nhất với số kí tự của dòng hiện tại sau đó /2 để tiến hành căn giữa cho câu.
-            String paddedLine = " ".repeat(padding) + line;
-            // repeat(int count) : hàm lặp lại kí tự or chuỗi với số lần đc thiết lập trong ngoặc.
-            formattedPoemBuilder.append(paddedLine).append("\n");
+        for (int i = 0; i < 4; i++)
+        {
+            String new_line = "";
+            int centerAlign = (max_kitu - line[i].length()) / 2;
+            for (int j = 0; j < centerAlign; j++)
+            {
+                new_line += " ";
+            }
+            line[i] = new_line + line[i];
         }
-        return formattedPoemBuilder.toString();
     }
 }
 
